@@ -13,4 +13,4 @@ COPY . .
 EXPOSE 8000
 
 # Production command
-CMD ["sh", "-c", "uvicorn atlas.api.app:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "uvicorn atlas.api.app:app --app-dir src --host 0.0.0.0 --port ${PORT:-8000}"]
