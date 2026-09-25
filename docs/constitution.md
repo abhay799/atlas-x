@@ -1,0 +1,2 @@
+# ATLAS Constitution
+`config/constitution.json` is the versioned machine-readable bootstrap constitution. Pydantic validates its schema and mandatory fail-closed invariants at load time. It covers identity, authority ceilings, default-deny capability/tool/resource/data behavior, escalation, irreversible actions, financial limits, privacy, inter-agent communication, rollback, emergency shutdown, evidence, and auditing. Natural-language policy compilation is intentionally deferred to Phase 8.

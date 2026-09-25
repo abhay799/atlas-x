@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "constitution_version": "2026.1",
+  "require_agent_identity": true,
+  "max_autonomous_authority": 3,
+  "human_authority_level": 5,
+  "undeclared_capabilities_denied": true,
+  "tools_default_deny": true,
+  "resources_default_deny": true,
+  "data_default_deny": true,
+  "require_escalation_above_authority": true,
+  "irreversible_actions_require_human": true,
+  "financial_autonomous_limit": 0,
+  "privacy_constraints": ["no_unapproved_sensitive_data_access"],
+  "inter_agent_communication_default_deny": true,
+  "rollback_required_for_mutating_actions": true,
+  "emergency_shutdown_enabled": true,
+  "evidence_required_for_governed_actions": true,
+  "audit_required": true
+}
