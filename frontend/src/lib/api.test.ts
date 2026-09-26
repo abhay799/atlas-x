@@ -44,21 +44,25 @@ describe('resolveApiUrl', () => {
 });
 
 describe('AtlasApiClient', () => {
+  const originalFetch = globalThis.fetch;
+
   afterEach(() => {
+    globalThis.fetch = originalFetch;
     jest.restoreAllMocks();
   });
 
   it('calls the health endpoint', async () => {
-    const fetchMock = jest
-      .spyOn(global, 'fetch')
-      .mockResolvedValue({
-        ok: true,
-        status: 200,
-        statusText: 'OK',
-        json: async () => ({
-          status: 'ok',
-        }),
-      } as Response);
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      statusText: 'OK',
+      json: async () => ({
+        status: 'ok',
+      }),
+    } as Response);
+
+    globalThis.fetch =
+      fetchMock as typeof fetch;
 
     const api = new AtlasApiClient(
       'http://localhost:8000',
@@ -82,17 +86,18 @@ describe('AtlasApiClient', () => {
   });
 
   it('calls the readiness endpoint', async () => {
-    jest
-      .spyOn(global, 'fetch')
-      .mockResolvedValue({
-        ok: true,
-        status: 200,
-        statusText: 'OK',
-        json: async () => ({
-          status: 'ready',
-          constitution_version: '2026.1',
-        }),
-      } as Response);
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      statusText: 'OK',
+      json: async () => ({
+        status: 'ready',
+        constitution_version: '2026.1',
+      }),
+    } as Response);
+
+    globalThis.fetch =
+      fetchMock as typeof fetch;
 
     const api = new AtlasApiClient(
       'http://localhost:8000',
@@ -107,16 +112,17 @@ describe('AtlasApiClient', () => {
   });
 
   it('throws when the backend returns an error', async () => {
-    jest
-      .spyOn(global, 'fetch')
-      .mockResolvedValue({
-        ok: false,
-        status: 500,
-        statusText: 'Internal Server Error',
-        json: async () => ({
-          detail: 'Backend unavailable',
-        }),
-      } as Response);
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: false,
+      status: 500,
+      statusText: 'Internal Server Error',
+      json: async () => ({
+        detail: 'Backend unavailable',
+      }),
+    } as Response);
+
+    globalThis.fetch =
+      fetchMock as typeof fetch;
 
     const api = new AtlasApiClient(
       'http://localhost:8000',
